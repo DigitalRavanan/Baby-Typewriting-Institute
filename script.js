@@ -1,9 +1,8 @@
-// Import Firebase modules
+// Firebase imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
 
-// Your Firebase config
+// Your Firebase config (use your config here)
 const firebaseConfig = {
   apiKey: "AIzaSyBxS3WRK8kvVMO-q5EO_XvV6bwgm05IVN0",
   authDomain: "baby-typewriting-institu-89e00.firebaseapp.com",
@@ -16,54 +15,26 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 const db = getDatabase(app);
 
-// Login function
-window.login = function () {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      if (email === "vijayanharish525@gmail.com") {
-        window.location.href = "admin.html";
-      } else {
-        window.location.href = "dashboard.html";
-      }
-    })
-    .catch(err => alert(err.message));
-};
-
-// Enrollment with payment function
+// Attach function to window so HTML can call it
 window.enrollWithPayment = function () {
-  const name = document.getElementById("name").value;
+  const name = document.getElementById("name").value.trim();
   const course = document.getElementById("course-select").value;
-  const amount = document.getElementById("payment-amount").value;
+  const amount = document.getElementById("payment-amount").value.trim();
 
   if (!name || !course || !amount) {
-    alert("Please fill all fields");
+    alert("Please fill all fields.");
     return;
   }
 
-  const newRef = push(ref(db, "enrollments"));
-  set(newRef, { name, course, amount, timestamp: Date.now() })
+  const enrollRef = push(ref(db, "enrollments"));
+  set(enrollRef, {
+    name,
+    course,
+    amount,
+    timestamp: Date.now()
+  })
     .then(() => alert("Enrollment and payment recorded! We will contact you soon."))
-    .catch(err => alert(err.message));
+    .catch(err => alert("Error: " + err.message));
 };
-
-// Load enrollments for admin page
-if (window.location.pathname.includes("admin.html")) {
-  const list = document.getElementById("list");
-  const enrollmentsRef = ref(db, "enrollments");
-
-  onValue(enrollmentsRef, snapshot => {
-    list.innerHTML = "";
-    snapshot.forEach(child => {
-      const data = child.val();
-      const li = document.createElement("li");
-      li.textContent = `${data.name} enrolled in ${data.course} (₹${data.amount})`;
-      list.appendChild(li);
-    });
-  });
-}
