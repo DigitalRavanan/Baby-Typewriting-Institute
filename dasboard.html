@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Baby Typewriting Institute</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .dashboard {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .course-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 300px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .course-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .course-card h3 {
+      margin-bottom: 10px;
+      color: #0d6efd;
+    }
+
+    .course-card p {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h2>Available Typewriting Courses</h2>
+
+  <div class="dashboard">
+    <div class="course-card">
+      <h3>Tamil Typewriting</h3>
+      <p>Basic to advanced typing in Tamil script.</p>
+      <a href="register.html"><button>Enroll Now</button></a>
+    </div>
+
+    <div class="course-card">
+      <h3>English Typewriting</h3>
+      <p>Learn English typing with speed and accuracy.</p>
+      <a href="register.html"><button>Enroll Now</button></a>
+    </div>
+  </div>
+</body>
+</html>
