@@ -2,63 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard - Baby Typewriting Institute</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard - Baby Typewriting Institute</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .dashboard {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 30px;
-    }
-
-    .course-card {
-      background-color: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 300px;
-      text-align: center;
-      transition: transform 0.2s;
-    }
-
-    .course-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .course-card h3 {
-      margin-bottom: 10px;
-      color: #0d6efd;
-    }
-
-    .course-card p {
-      color: #555;
-    }
-  </style>
+  <script type="module" src="script.js" defer></script>
 </head>
 <body>
   <nav style="background:#004080; padding:10px; color:white; font-family:sans-serif;">
-  <a href="index.html" style="color:white; margin-right:15px; text-decoration:none;">Login</a>
-  <a href="register.html" style="color:white; margin-right:15px; text-decoration:none;">Enroll</a>
-  <a href="dashboard.html" style="color:white; margin-right:15px; text-decoration:none;">Dashboard</a>
-  <a href="admin.html" style="color:white; margin-right:15px; text-decoration:none;">Admin</a>
-</nav>
-<hr>
-  <h2>Available Typewriting Courses</h2>
+    <a href="index.html" style="color:white; margin-right:15px; text-decoration:none;">Login</a>
+    <a href="register.html" style="color:white; margin-right:15px; text-decoration:none;">Enroll</a>
+    <a href="dashboard.html" style="color:white; margin-right:15px; text-decoration:none;">Dashboard</a>
+    <a href="admin.html" style="color:white; margin-right:15px; text-decoration:none;">Admin</a>
+  </nav>
 
-  <div class="dashboard">
-    <div class="course-card">
-      <h3>Tamil Typewriting</h3>
-      <p>Basic to advanced typing in Tamil script.</p>
-      <a href="register.html"><button>Enroll Now</button></a>
-    </div>
+  <div style="padding: 20px; font-family: Arial, sans-serif;">
+    <h2>Welcome to Your Dashboard</h2>
 
-    <div class="course-card">
-      <h3>English Typewriting</h3>
-      <p>Learn English typing with speed and accuracy.</p>
-      <a href="register.html"><button>Enroll Now</button></a>
-    </div>
+    <section style="margin-top:20px;">
+      <h3>📍 Attendance</h3>
+      <button onclick="checkIn()">Check In</button>
+      <button onclick="checkOut()">Check Out</button>
+    </section>
+
+    <section style="margin-top:20px;">
+      <h3>📅 Request Leave</h3>
+      <input type="date" id="leaveDate">
+      <input type="text" id="leaveReason" placeholder="Reason">
+      <button onclick="requestLeave()">Submit Leave Request</button>
+    </section>
+
+    <section style="margin-top:20px;">
+      <h3>📊 Attendance History</h3>
+      <ul id="attendanceList"></ul>
+    </section>
+
+    <section style="margin-top:20px;">
+      <h3>👤 Update Profile</h3>
+      <input type="text" id="updateName" placeholder="Name">
+      <input type="email" id="updateEmail" placeholder="Email">
+      <button onclick="updateProfile()">Update</button>
+    </section>
   </div>
 </body>
 </html>
