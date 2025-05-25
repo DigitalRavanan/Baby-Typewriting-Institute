@@ -1,77 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>Admin Panel - Baby Typewriting Institute</title>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <title>Admin Dashboard</title>
+  <script type="module" src="script.js" defer></script>
 </head>
 <body>
-  <h1>Admin Panel</h1>
-  <button id="logout-btn">Logout</button>
-  <h2>Course Enrollments</h2>
-  <ul id="enrollments-list">Loading...</ul>
-
-  <script>
-    // Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyBxS3WRK8kvVMO-q5EO_XvV6bwgm05IVN0",
-      authDomain: "baby-typewriting-institu-89e00.firebaseapp.com",
-      projectId: "baby-typewriting-institu-89e00",
-      storageBucket: "baby-typewriting-institu-89e00.appspot.com",
-      messagingSenderId: "873777136115",
-      appId: "1:873777136115:web:e40b75d23ec3ffc2fc1286"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-
-    auth.onAuthStateChanged(user => {
-      if (!user) {
-        alert('You must be logged in.');
-        window.location.href = 'index.html';
-        return;
-      }
-      if (user.email !== 'admin@babytyping.com') {
-        alert('Access denied. Admins only.');
-        auth.signOut();
-        window.location.href = 'index.html';
-        return;
-      }
-      loadEnrollments();
-    });
-
-    function loadEnrollments() {
-      const list = document.getElementById('enrollments-list');
-      list.innerHTML = 'Loading...';
-
-      db.collection('enrollments').orderBy('enrolledAt', 'desc').get()
-        .then(snapshot => {
-          list.innerHTML = '';
-          if (snapshot.empty) {
-            list.innerHTML = '<li>No enrollments found.</li>';
-            return;
-          }
-          snapshot.forEach(doc => {
-            const data = doc.data();
-            const enrolledDate = data.enrolledAt ? data.enrolledAt.toDate().toLocaleString() : 'Unknown date';
-            const li = document.createElement('li');
-            li.textContent = `${data.email} enrolled in ${data.course} on ${enrolledDate}`;
-            list.appendChild(li);
-          });
-        })
-        .catch(error => {
-          list.innerHTML = 'Error loading enrollments: ' + error.message;
-        });
-    }
-
-    document.getElementById('logout-btn').addEventListener('click', () => {
-      auth.signOut().then(() => {
-        window.location.href = 'index.html';
-      });
-    });
-  </script>
+  <h2>Enrollments</h2>
+  <ul id="list"></ul>
 </body>
 </html>
