@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/BABY-TYPEWRITING-INSTITUTE/static/js/main.6013dc74.js",
+    "main.js": "/BABY-TYPEWRITING-INSTITUTE/static/js/main.d5412b0c.js",
     "index.html": "/BABY-TYPEWRITING-INSTITUTE/index.html",
-    "main.6013dc74.js.map": "/BABY-TYPEWRITING-INSTITUTE/static/js/main.6013dc74.js.map"
+    "main.d5412b0c.js.map": "/BABY-TYPEWRITING-INSTITUTE/static/js/main.d5412b0c.js.map"
   },
   "entrypoints": [
-    "static/js/main.6013dc74.js"
+    "static/js/main.d5412b0c.js"
   ]
 }
