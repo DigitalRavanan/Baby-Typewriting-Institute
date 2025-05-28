@@ -4,7 +4,8 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  onAuthStateChanged
+  onAuthStateChanged,
+  signOut
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 import {
   getDatabase,
@@ -94,4 +95,24 @@ window.markCheckOut = function () {
     checkOut: now
   }).then(() => alert("Checked out!"));
 };
-// Listen for auth state changes
+
+// Listen for auth state changes and handle UI logic if needed
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("User is signed in:", user.email);
+  } else {
+    console.log("No user signed in");
+  }
+});
+
+// Logout function
+window.logout = function () {
+  signOut(auth)
+    .then(() => {
+      alert("Logged out successfully");
+      window.location.href = "index.html";
+    })
+    .catch((error) => {
+      alert("Error logging out: " + error.message);
+    });
+};
