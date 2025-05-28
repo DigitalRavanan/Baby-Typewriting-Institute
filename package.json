@@ -18,7 +18,8 @@
   "bugs": {
     "url": "https://github.com/DigitalRavanan/BABY-TYPEWRITING-INSTITUTE/issues"
   },
-  "homepage": "https://github.com/DigitalRavanan/BABY-TYPEWRITING-INSTITUTE#readme",
+  "homepage": "https://DigitalRavanan.github.io/BABY-TYPEWRITING-INSTITUTE"
+,
   "description": "",
   "dependencies": {
     "firebase": "^11.8.1",
