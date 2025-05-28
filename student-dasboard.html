@@ -12,15 +12,19 @@
     <a href="index.html" style="color:white; margin-right:15px; text-decoration:none;">Login</a>
     <a href="register.html" style="color:white; margin-right:15px; text-decoration:none;">Enroll</a>
     <a href="student-dashboard.html" style="color:white; margin-right:15px; text-decoration:none;">Dashboard</a>
+    <button onclick="logout()" style="float:right; background:red; color:white; border:none; padding:5px 10px; border-radius:5px;">Logout</button>
   </nav>
   <hr>
-  <h2>Welcome to Student Dashboard</h2>
-  <p id="studentName"></p>
 
-  <button onclick="markCheckIn()">Check In</button>
-  <button onclick="markCheckOut()">Check Out</button>
+  <h2>Welcome to Student Dashboard</h2>
+  <p id="studentName">Loading your name...</p>
+
+  <div style="margin-bottom: 20px;">
+    <button onclick="markCheckIn()">✅ Check In</button>
+    <button onclick="markCheckOut()">⛔ Check Out</button>
+  </div>
 
   <h3>Your Attendance Calendar</h3>
-  <div id="calendar"></div>
+  <div id="calendar">Loading attendance calendar...</div>
 </body>
 </html>
