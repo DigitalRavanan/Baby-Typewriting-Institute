@@ -10,7 +10,7 @@ import StudentDashboard from "./pages/StudentDashboard";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/BABY-TYPEWRITING-INSTITUTE">
       <Routes>
         <Route path="/" element={<GenericDashboard />} />
 
