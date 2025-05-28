@@ -1,56 +1,42 @@
-/* style.css */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f8f9fa;
-  color: #333;
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="script.js" defer></script>
+  <script src="calendar.js" defer></script>
+</head>
+<body>
+  <nav style="background:#004080; padding:10px; color:white; font-family:sans-serif;">
+    <a href="index.html" style="color:white; margin-right:15px; text-decoration:none;">Login</a>
+    <a href="register.html" style="color:white; margin-right:15px; text-decoration:none;">Enroll</a>
+    <a href="student-dashboard.html" style="color:white; margin-right:15px; text-decoration:none;">Dashboard</a>
+    <button onclick="logout()" style="float:right; background:red; color:white; border:none; padding:5px 10px; cursor:pointer;">Logout</button>
+  </nav>
 
-h2 {
-  color: #0d6efd;
-  margin-bottom: 20px;
-}
+  <hr>
+  <h2>Welcome to Student Dashboard</h2>
+  <p id="studentName">Hello, Student!</p>
 
-input {
-  padding: 12px;
-  margin: 8px 0;
-  width: 280px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-sizing: border-box;
-  font-size: 16px;
-}
+  <button onclick="markCheckIn()">✅ Check In</button>
+  <button onclick="markCheckOut()">❌ Check Out</button>
 
-button {
-  padding: 12px 24px;
-  background-color: #0d6efd;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background 0.3s ease;
-}
+  <h3>Your Attendance Calendar</h3>
+  <div id="calendar"></div>
 
-button:hover {
-  background-color: #0b5ed7;
-}
+  <hr>
 
-ul {
-  list-style: none;
-  padding: 0;
-}
+  <h3>Update Personal Details</h3>
+  <input id="update-name" placeholder="Full Name" />
+  <input id="update-phone" placeholder="Phone Number" />
+  <button onclick="updateStudentDetails()">Update</button>
 
-li {
-  background-color: white;
-  padding: 12px;
-  margin: 8px 0;
-  width: 100%;
-  max-width: 400px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+  <hr>
+
+  <h3>Request Leave</h3>
+  <input id="leave-date" type="date" />
+  <input id="leave-reason" placeholder="Reason for Leave" />
+  <button onclick="requestLeave()">Submit Leave Request</button>
+</body>
+</html>
