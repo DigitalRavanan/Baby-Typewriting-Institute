@@ -1,0 +1,30 @@
+{
+  "name": "baby-typewriting-institute",
+  "version": "1.0.0",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DigitalRavanan/BABY-TYPEWRITING-INSTITUTE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DigitalRavanan/BABY-TYPEWRITING-INSTITUTE/issues"
+  },
+  "homepage": "https://github.com/DigitalRavanan/BABY-TYPEWRITING-INSTITUTE#readme",
+  "description": "",
+  "dependencies": {
+    "firebase": "^11.8.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.1",
+    "react-scripts": "^5.0.1"
+  }
+}
