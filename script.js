@@ -1,8 +1,21 @@
-// Firebase imports
+// script.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import {
+  getDatabase,
+  ref,
+  set,
+  push,
+  onValue,
+  update
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
 
-// Your Firebase config (use your config here)
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyBxS3WRK8kvVMO-q5EO_XvV6bwgm05IVN0",
   authDomain: "baby-typewriting-institu-89e00.firebaseapp.com",
@@ -15,88 +28,70 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getDatabase(app);
 
-// Attach function to window so HTML can call it
+// Enroll with payment function
 window.enrollWithPayment = function () {
-  const name = document.getElementById("name").value.trim();
+  const name = document.getElementById("name").value;
   const course = document.getElementById("course-select").value;
-  const amount = document.getElementById("payment-amount").value.trim();
+  const amount = document.getElementById("payment-amount").value;
 
   if (!name || !course || !amount) {
-    alert("Please fill all fields.");
+    alert("Please fill in all fields");
     return;
   }
 
-  const enrollRef = push(ref(db, "enrollments"));
-  set(enrollRef, {
+  const newRef = push(ref(db, "students"));
+  set(newRef, {
     name,
     course,
-    amount,
-    timestamp: Date.now()
+    payment: amount,
+    attendance: {}
   })
-    .then(() => alert("Enrollment and payment recorded! We will contact you soon."))
-    .catch(err => alert("Error: " + err.message));
+    .then(() => alert("Enrolled successfully!"))
+    .catch(err => alert(err.message));
 };
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import { update, get, child } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
 
-let currentUser;
+// Login function
+window.login = function () {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-// Monitor login state
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    currentUser = user;
-    loadAttendance();
-  }
-});
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      if (email === "vijayanharish525@gmail.com") {
+        window.location.href = "admin.html";
+      } else {
+        window.location.href = "student-dashboard.html";
+      }
+    })
+    .catch(err => alert(err.message));
+};
 
-window.checkIn = function () {
-  const today = new Date().toISOString().split('T')[0];
+// Mark Check-In
+window.markCheckIn = function () {
+  const user = auth.currentUser;
+  if (!user) return alert("Not logged in");
+
+  const today = new Date().toISOString().split("T")[0];
   const now = new Date().toLocaleTimeString();
-  const path = `students/${currentUser.uid}/attendance/${today}`;
-  set(ref(db, path), { checkIn: now });
-  alert("Checked in at " + now);
+
+  update(ref(db, `attendance/${user.uid}/${today}`), {
+    checkIn: now
+  }).then(() => alert("Checked in!"));
 };
 
-window.checkOut = function () {
-  const today = new Date().toISOString().split('T')[0];
+// Mark Check-Out
+window.markCheckOut = function () {
+  const user = auth.currentUser;
+  if (!user) return alert("Not logged in");
+
+  const today = new Date().toISOString().split("T")[0];
   const now = new Date().toLocaleTimeString();
-  const path = `students/${currentUser.uid}/attendance/${today}/checkOut`;
-  set(ref(db, path), now);
-  alert("Checked out at " + now);
+
+  update(ref(db, `attendance/${user.uid}/${today}`), {
+    checkOut: now
+  }).then(() => alert("Checked out!"));
 };
-
-window.requestLeave = function () {
-  const date = document.getElementById("leaveDate").value;
-  const reason = document.getElementById("leaveReason").value;
-  if (!date || !reason) return alert("Fill in both fields.");
-
-  set(ref(db, `students/${currentUser.uid}/leaves/${date}`), reason)
-    .then(() => alert("Leave requested."))
-    .catch((err) => alert(err.message));
-};
-
-window.updateProfile = function () {
-  const name = document.getElementById("updateName").value;
-  const email = document.getElementById("updateEmail").value;
-  update(ref(db, `students/${currentUser.uid}`), {
-    name, email
-  })
-    .then(() => alert("Profile updated."))
-    .catch((err) => alert(err.message));
-};
-
-function loadAttendance() {
-  const list = document.getElementById("attendanceList");
-  const attendanceRef = ref(db, `students/${currentUser.uid}/attendance`);
-  onValue(attendanceRef, snapshot => {
-    list.innerHTML = "";
-    snapshot.forEach(day => {
-      const record = day.val();
-      const li = document.createElement("li");
-      li.textContent = `${day.key}: In - ${record.checkIn || '-'}, Out - ${record.checkOut || '-'}`;
-      list.appendChild(li);
-    });
-  });
-}
+// Listen for auth state changes
