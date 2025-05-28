@@ -1,30 +1,25 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-
-import GenericDashboard from "./pages/GenericDashboard";
-import AdminLogin from "./pages/AdminLogin";
-import AdminDashboard from "./pages/AdminDashboard";
-import StudentRegister from "./pages/StudentRegister";
+import { Routes, Route } from "react-router-dom";
 import StudentLogin from "./pages/StudentLogin";
 import StudentDashboard from "./pages/StudentDashboard";
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
+import GenericDashboard from "./pages/GenericDashboard";
 
 function App() {
   return (
-    <Router basename="/BABY-TYPEWRITING-INSTITUTE">
-      <Routes>
-        <Route path="/" element={<GenericDashboard />} />
+    <Routes>
+      {/* Generic dashboard */}
+      <Route path="/" element={<GenericDashboard />} />
 
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+      {/* Student routes */}
+      <Route path="/student/login" element={<StudentLogin />} />
+      <Route path="/student/dashboard" element={<StudentDashboard />} />
 
-        <Route path="/student/register" element={<StudentRegister />} />
-        <Route path="/student/login" element={<StudentLogin />} />
-        <Route path="/student/dashboard" element={<StudentDashboard />} />
-
-        {/* Redirect unknown routes */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </Router>
+      {/* Admin routes */}
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path="/admin/dashboard" element={<AdminDashboard />} />
+    </Routes>
   );
 }
 
